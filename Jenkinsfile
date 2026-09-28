@@ -5,31 +5,19 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                bat '''
-                    python3 --version
-                    python3 -m venv venv
-                    . venv/bin/activate
-                    python -m pip install --upgrade pip
-                    pip install -r requirements.txt
-                '''
+                bat '"C:\\Users\\theed\\AppData\\Local\\Programs\\Python\\Python312\\python.exe" -m pip install -r requirements.txt'
             }
         }
 
         stage('Test') {
             steps {
-                bat '''
-                    . venv/bin/activate
-                    pytest
-                '''
+                bat '"C:\\Users\\theed\\AppData\\Local\\Programs\\Python\\Python312\\python.exe" -m pytest'
             }
         }
 
         stage('Build') {
             steps {
-                bat '''
-                    . venv/bin/activate
-                    echo "Build completed successfully"
-                '''
+                bat '"C:\\Users\\theed\\AppData\\Local\\Programs\\Python\\Python312\\python.exe" -m pip freeze'
             }
         }
     }
