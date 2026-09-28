@@ -5,7 +5,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh '''
+                bat '''
                     python3 --version
                     python3 -m venv venv
                     . venv/bin/activate
@@ -17,7 +17,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh '''
+                bat '''
                     . venv/bin/activate
                     pytest
                 '''
@@ -26,7 +26,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh '''
+                bat '''
                     . venv/bin/activate
                     echo "Build completed successfully"
                 '''
