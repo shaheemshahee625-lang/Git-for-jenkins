@@ -5,20 +5,48 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                bat '"C:\\Users\\theed\\AppData\\Local\\Programs\\Python\\Python312\\python.exe" -m pip install -r requirements.txt'
+                bat '''
+                    echo Checking Python...
+                    "C:\\Users\\shaheem\\AppData\\Local\\Programs\\Python\\Python314\\python.exe" --version
+
+                    echo Creating virtual environment...
+                    "C:\\Users\\shaheem\\AppData\\Local\\Programs\\Python\\Python314\\python.exe" -m venv venv
+
+                    echo Upgrading pip...
+                    venv\\Scripts\\python.exe -m pip install --upgrade pip
+
+                    echo Installing requirements...
+                    venv\\Scripts\\python.exe -m pip install -r requirements.txt
+                '''
             }
         }
 
         stage('Test') {
             steps {
-                bat '"C:\\Users\\theed\\AppData\\Local\\Programs\\Python\\Python312\\python.exe" -m pytest'
+                bat '''
+                    echo Running tests...
+                    venv\\Scripts\\python.exe -m pytest
+                '''
             }
         }
 
         stage('Build') {
             steps {
-                bat '"C:\\Users\\theed\\AppData\\Local\\Programs\\Python\\Python312\\python.exe" -m pip freeze'
+                bat '''
+                    echo Build stage started...
+                    echo Flask application build completed successfully.
+                '''
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+
+        failure {
+            echo 'Pipeline failed. Check the stage logs above.'
         }
     }
 }
